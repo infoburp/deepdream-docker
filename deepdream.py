@@ -26,6 +26,7 @@ try:
 except ValueError:
     iterations = 50
 
+iterations = 10000
 scale = os.getenv('SCALE', 0.05)
 try:
     scale = float(scale)
