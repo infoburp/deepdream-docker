@@ -38,9 +38,9 @@ print "Processing file: " + input_file
 
 img = np.float32(PIL.Image.open('/data/%s' % input_file))
 
-model_path = '/caffe/models/bvlc_googlenet/' # substitute your path here
+model_path = '/caffe/models/finetune_flickr_style/' # substitute your path here
 net_fn   = model_path + 'deploy.prototxt'
-param_fn = model_path + 'bvlc_googlenet.caffemodel'
+param_fn = model_path + 'finetune_flickr_style.caffemodel'
 
 # Patching model to be able to compute gradients.
 # Note that you can also manually add "force_backward: true" line to "deploy.prototxt".
