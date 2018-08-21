@@ -17,7 +17,7 @@ def showarray(a):
     f = StringIO()
     millis = int(round(time.time() * 1000))
     filename = "/data/output/tmp/steps-%i.jpg" % millis
-    PIL.Image.fromarray(np.uint8(a)).save(filename)
+    #PIL.Image.fromarray(np.uint8(a)).save(filename)
 
 input_file = os.getenv('INPUT', 'input.png')
 iterations = os.getenv('ITER', 50)
