@@ -28,7 +28,9 @@ RUN make pycaffe
 ENV PYTHONPATH=/caffe/python
 
 # Download model
-RUN scripts/download_model_binary.py models/bvlc_googlenet
+#RUN scripts/download_model_binary.py models/bvlc_googlenet
+#RUN scripts/download_model_binary.py models/bvlc_alexnet
+RUN scripts/download_model_binary.py models/finetune_flickr_style
 
 
 VOLUME ["/data"]
