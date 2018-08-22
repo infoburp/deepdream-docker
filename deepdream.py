@@ -33,7 +33,7 @@ try:
 except ValueError:
     scale = 0.05
 
-model_name = os.getenv('MODEL', 'inception_4c/output')
+model_name = os.getenv('MODEL', 'fc8_flickr')
 print "Processing file: " + input_file
 
 img = np.float32(PIL.Image.open('/data/%s' % input_file))
@@ -60,7 +60,7 @@ def preprocess(net, img):
 def deprocess(net, img):
     return np.dstack((img + net.transformer.mean['data'])[::-1])
 
-def make_step(net, step_size=1.5, end='inception_4c/output', jitter=32, clip=True):
+def make_step(net, step_size=1.5, end='fc8_flickr', jitter=32, clip=True):
     '''Basic gradient ascent step.'''
     src = net.blobs['data'] # input image is stored in Net's 'data' blob
     dst = net.blobs[end]
@@ -77,7 +77,7 @@ def make_step(net, step_size=1.5, end='inception_4c/output', jitter=32, clip=Tru
         bias = net.transformer.mean['data']
         src.data[:] = np.clip(src.data, -bias, 255-bias)
 
-def deepdream(net, base_img, iter_n=10, octave_n=4, octave_scale=1.4, end='inception_4c/output', clip=True, **step_params):
+def deepdream(net, base_img, iter_n=10, octave_n=4, octave_scale=1.4, end='fc8_flickr', clip=True, **step_params):
     # prepare base images for all octaves
     octaves = [preprocess(net, base_img)]
     for i in xrange(octave_n-1):
@@ -127,15 +127,6 @@ if not os.path.exists("/data/output"):
 
 if not os.path.exists("/data/output/tmp"):
   os.mkdir("/data/output/tmp")
-
-print "This might take a little while..."
-print "Generating first sample..."
-step_one = deepdream(net, img)
-PIL.Image.fromarray(np.uint8(step_one)).save("/data/output/step_one.jpg")
-
-print "Generating second sample..."
-step_two = deepdream(net, img, end='inception_3b/5x5_reduce')
-PIL.Image.fromarray(np.uint8(step_two)).save("/data/output/step_two.jpg")
 
 frame = img
 frame_i = 0
